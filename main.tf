@@ -100,7 +100,9 @@ resource "aws_eks_cluster" "devopsshack" {
 resource "aws_eks_addon" "ebs_csi_driver" {
   cluster_name    = aws_eks_cluster.devopsshack.name
   addon_name      = "aws-ebs-csi-driver"
-  
+  addon_version = "v1.32.0-eksbuild.1" # Example, match your EKS version
+  resolve_conflicts = "OVERWRITE"
+  service_account_role_arn = aws_iam_role.ebs_csi_driver_role.arn
   resolve_conflicts_on_create = "OVERWRITE"
   resolve_conflicts_on_update = "OVERWRITE"
 }
